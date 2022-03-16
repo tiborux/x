@@ -104,15 +104,51 @@ This component renders a list of suggestions coming from the user queries histor
 
 No props are required for the usage of this component.
 
-```vue
-<HistoryQueries />
+```vue live
+<template>
+  <SearchInput />
+  <HistoryQueries />
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+
+  export default {
+    name: 'HistoryQueriesDemo',
+    components: {
+      SearchInput,
+      HistoryQueries
+    }
+  };
+</script>
 ```
 
 The component has two optional props. `animation` to render the component with an animation and
 `maxItemToRender` to limit the number of history queries will be rendered (by default it is 5).
 
-```vue
-<HistoryQueries :animation="FadeAndSlide" :maxItemsToRender="10" />
+```vue live
+<template>
+  <SearchInput />
+  <HistoryQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+</template>
+
+<script>
+  import Vue from 'vue';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+  import { FadeAndSlide } from '@empathyco/x-components';
+
+  // Registering the animation as a global component
+  Vue.component('FadeAndSlide', FadeAndSlide);
+  export default {
+    name: 'HistoryQueriesDemo',
+    components: {
+      SearchInput,
+      HistoryQueries
+    }
+  };
+</script>
 ```
 
 ### Overriding Suggestion component
@@ -122,13 +158,30 @@ The default `HistoryQuery` component that is used in every suggestion can be rep
 Remember that if HistoryQuery component wasn't used the `handleHistoryQuerySelection` method needs
 to be implemented emitting the needed events.
 
-```vue
-<HistoryQueries>
-  <template #suggestion="{ suggestion }">
-    <img class="x-history-query__icon" src="./history-query-extra-icon.svg"/>
-    <HistoryQuery :suggestion="suggestion"/>
-  </template>
-</HistoryQueries>
+```vue live
+<template>
+  <SearchInput />
+  <HistoryQueries>
+    <template #suggestion="{ suggestion }">
+      <img class="x-history-query__icon" src="/assets/icons/bulb.svg" />
+      <HistoryQuery :suggestion="suggestion" />
+    </template>
+  </HistoryQueries>
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { HistoryQueries, HistoryQuery } from '@empathyco/x-components/history-queries';
+
+  export default {
+    name: 'HistoryQueriesDemo',
+    components: {
+      SearchInput,
+      HistoryQueries,
+      HistoryQuery
+    }
+  };
+</script>
 ```
 
 ### Overriding suggestion-content and suggestion-remove-content slot
@@ -137,15 +190,31 @@ The content of the `HistoryQuery` component can be overridden. For replacing the
 content, the `suggestion-content` slot is available, containing the history query suggestion (in the
 `suggestion` property), and the matching query part HTML (in the `queryHTML` property).
 
-```vue
-<HistoryQueries>
-  <template #suggestion-content="{ queryHTML }">
-    <img class="x-history-query__history-icon" src="./history-icon.svg"/>
-    <span class="x-history-query__matching-part" v-html="queryHTML"></span>
-  </template>
-  <template #suggestion-remove-content>
-    <img class="x-history-queries__remove" src="./remove-icon.svg"/>
-  </template>
-</HistoryQueries>
+```vue live
+<template>
+  <SearchInput />
+  <HistoryQueries>
+    <template #suggestion-content="{ queryHTML }">
+      <img class="x-history-query__history-icon" src="/assets/icons/bulb.svg" />
+      <span class="x-history-query__matching-part" v-html="queryHTML"></span>
+    </template>
+    <template #suggestion-remove-content>
+      <img class="x-history-queries__remove" src="/assets/icons/cross-dark.svg" />
+    </template>
+  </HistoryQueries>
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+
+  export default {
+    name: 'HistoryQueriesDemo',
+    components: {
+      SearchInput,
+      HistoryQueries
+    }
+  };
+</script>
 ```
 </docs>
